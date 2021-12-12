@@ -4,7 +4,7 @@
 
         <item
             android:icon="@android:drawable/ic_menu_add"
-            android:title="añadir"
+            android:title="GESTIONAR"
             app:showAsAction="always"
             android:id="@+id/menu_añadir"/>
 
