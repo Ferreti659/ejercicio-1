@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (login(user, pass)) {
 
                     goToMain();
-                    saveOnPreferences(user, pass);
+
 
                 }
 
@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextUser = (TextView) findViewById(R.id.editTextUser);
         editTextPassword = (TextView) findViewById(R.id.editTextPassword);
-        switch1 = (Switch) findViewById((R.id.switch1));
+
         btnLogin = (Button) findViewById(R.id.btnLogin);
 
     }
@@ -90,16 +90,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void saveOnPreferences(String user, String pass) {
 
-        if(switch1.isChecked()){
-            SharedPreferences.Editor editor = cositas.edit();
-            editor.putString("user", user);
-            editor.putString("pass", pass);
-            editor.apply();
-        }
-
-    }
 
     private boolean isValiduser(String user) {
 

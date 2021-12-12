@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ public class agregar extends AppCompatActivity {
         idioma = (EditText) findViewById(R.id.idioma);
         edad = (EditText) findViewById(R.id.edad);
         nombre=(EditText) findViewById(R.id.Nombre);
+
+
 
     }
 
