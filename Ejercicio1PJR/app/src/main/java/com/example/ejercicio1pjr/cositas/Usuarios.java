@@ -8,7 +8,7 @@ public class Usuarios {
     private String contraseña;
     private String idioma;
 
-    public Usuarios (String gmail, String nombre, int edad, String contraseña, String idioma){
+    public Usuarios(String gmail, int edad, String contraseña){
         setContraseña(contraseña);
         setGmail(gmail);
         setIdioma(idioma);

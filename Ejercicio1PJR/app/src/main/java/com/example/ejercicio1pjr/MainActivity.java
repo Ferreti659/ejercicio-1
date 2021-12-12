@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.ejercicio1pjr.cositas.Usuarios;
 import com.example.ejercicio1pjr.cositas.sqlite;
@@ -35,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setContentView(R.layout.mostrar_activity);
+        lista = (ListView) findViewById(R.id.mostrar_activity);
         llenarLista();
-        onClick();
+
 
 
         cositas = getSharedPreferences("Preferenes", Context.MODE_PRIVATE);
@@ -78,51 +79,7 @@ public class MainActivity extends AppCompatActivity {
         llenarLista();
     }
 
-    private void onClick() {
-        lista.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        lista.setOnItemClickListener(new AdapterView.OnItemLongClickListener(){
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
-                usuariosSelecionado = position;
-                mActionMode = MainActivity.this.startActionMode(amc);
-                view.setSelected(true);
-                return true;
-            }
-        });
-    }
 
-    private ActionMode.Callback amc = new ActionMode.Callback() {
-        @Override
-        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-            getMenuInflater().inflate(R.menu.opciones, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode actionMode, MenuItem item) {
-            if(item.getItemId() == R.id.EliminarItem){
-                eliminarUsuario();
-                mode.finish();
-            }else if(item.getItemId() == R.id.EditarItem){
-                Usuarios usu = usuarios.get(usuariosSelecionado);
-                Intent in = new Intent(MainActivity.this,agregar.class);
-                in.putExtra("gmail", usu.getGmail());
-                startActivity(in);
-                mode.finish();
-            }
-            return false;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode actionMode) {
-
-        }
-    }
 
 
     private void llenarLista() {
@@ -157,6 +114,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void eliminarUsuario() {
+
+        sqlite zh = new sqlite(MainActivity.this, "usuarios", null,1);
+        if(zh!=null){
+
+            SQLiteDatabase db = zh.getReadableDatabase();
+            Usuarios usu = usuarios.get(usuariosSelecionado);
+            long response = db.delete("usuarios", "gmail="+usu.getGmail(),null);
+
+            if(response>0){
+
+                Toast.makeText(MainActivity.this, "Deleted", Toast.LENGTH_LONG).show();
+                usuarios.removeAll(usuarios);
+                llenarLista();
+
+            }else{
+                Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
 
     }
 
